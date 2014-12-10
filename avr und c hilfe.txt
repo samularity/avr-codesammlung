@@ -133,3 +133,50 @@ int main(void){
   }
 }
 
+
+/**********************************************
+************      Ringbuffer     **************
+**********************************************/
+
+#define BUFFER_SIZE 256 // muss 2^n betragen (8, 16, 32, 64 , 128 , 256, 512, ...)
+#define BUFFER_MASK (BUFFER_SIZE-1) // Klammern auf keinen Fall vergessen
+
+int8_t BufferIn(uint8_t byte);
+int8_t BufferOut(uint8_t *pByte);
+
+struct RingBuffer
+{
+  uint8_t Data[BUFFER_SIZE];
+  uint16_t WritePos;
+  uint16_t ReadPos;
+  bool	EndOfLine;
+} ringbuffer = {{},0,0,false};
+
+int8_t BufferIn(uint8_t byte)
+{
+  uint8_t next = ((ringbuffer.WritePos + 1) & BUFFER_MASK);
+  if (ringbuffer.ReadPos == next)
+    return -1;//buffer full
+  ringbuffer.Data[ringbuffer.WritePos] = byte;
+  if ((byte == '\r')||(byte == '\n'))
+	  ringbuffer.EndOfLine=true;
+  // ringbuffer.Data[buffer.WritePos & BUFFER_MASK] = byte; // absolut Sicher
+  ringbuffer.WritePos = next;
+  return 0;//SUCCESS
+}
+
+int8_t BufferOut(uint8_t *pByte)
+{
+  if (ringbuffer.ReadPos == ringbuffer.WritePos)
+    return -1;//buffer empty
+  *pByte = ringbuffer.Data[ringbuffer.ReadPos];
+//  *pByte = ringbuffer.Data[ringbuffer.ReadPos];
+  if ((*pByte=='\r')||(*pByte=='\n'))
+	  ringbuffer.EndOfLine=false;
+  ringbuffer.ReadPos = (ringbuffer.ReadPos+1) & BUFFER_MASK;
+  return 0;//SUCCESS
+}
+
+
+
+
