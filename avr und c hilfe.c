@@ -1,3 +1,36 @@
+/**********************************************
+********      Eingang oder Ausgang     ********
+**********************************************/
+//eingagn oder ausgang -> port direction DDR -> DATA Direction Register
+//aus http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial#Datenrichtung_bestimmen
+
+// Pin 3 und 4 auf Eingang und andere im ursprünglichen Zustand belassen:
+DDRB &= ~((1 << DDB3) | (1 << DDB4));
+
+// Pin 0 und 3  als Ausgang und andere im ursprünglichen Zustand belassen:
+DDRB |= (1 << DDB0) | (1 << DDB3);
+
+DDRA = 0xff;  		//alle pins port a als ausgang
+DDRB = 0x00; 		//alle pins port b als eingnag
+DDRB = 0b00011111;  //port b pin 0,1,2,3,4 als ausgang und 5,6,7 als eingng
+
+
+/**********************************************
+******  Ausgang High und LOW setzten    *******
+**********************************************/
+//schalte ausgang high oder low
+PORTB = 0b00000100;     //port b pin 2 high
+PORTB = 0b00000111;     //port b pin 0,1,2 high
+
+PORTB |= (1<<5);	// Port B pin 5 high alle andere lassen
+PORTB |= (1<<4) | (1<<5); // Port B pin 4 und pin 5 high alle andere lassen
+
+PORTB &= ~(1<<5);   // Port B pin 5 Low  alle andere lassen
+PORTB &= ~( (1<<PB4) | (1<<PB5) ); // Pin PB4 und Pin PB5 "low" alle anderen lassen
+
+
+
+
 
 //makros
 #define	SET_HIGH(s)		PORTB |= (1<<s);	//PB high
@@ -5,28 +38,23 @@
 #define E6_toggle 		PORTE^=(1<<PINE6);	//toggelt einen pin
 
 
+/**********************************************
+*********      Eingänge Lesen      ************
+**********************************************/
 
-DDRA &= ~( (1<<PA0) | (1<<PA3) );  /* PA0 und PA3 als Eingaenge */
-PORTA |= ( (1<<PA0) | (1<<PA3) );  /* Interne Pull-Up fuer beide einschalten */
+PORTC |= (1<<7);    // internen Pull-Up an PC7 aktivieren 
+PORTC &= ~(1<<7);   // internen Pull-Up an PC7 deaktivieren 
 
-
-DDRA = 0xff;  		//alle pins port a als ausgang
-
-DDRB = 0x00; 		//alle pins port b als eingnag
-
-DDRB = 0b00011111;    	//port b pin 0,1,2,3,4 als ausgang und 5,6,7 als eingng
-
-PORTB = 0b00000100;     //port b pin 2 high
-PORTB = 0b00000111;     //port b pin 0,1,2 high
+//lese PortC pin 7 
+bool Eingang1 = PINC & (1<<7);  //true wenn pc7 high
+bool Eingang2 = (!(PINC & (1<<2)))//true wenn pc2 low
 
 
 
 
-char h;		// char h='a'; h='A'; h='\n';
-char outs[20];  	//char array mit name outs 20 länge
-char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //0terinator von hans
-const char hallo[] = { "Hallo Welt\n" }; //oterminator automatisch
-
+/************************************************
+*********    Variablen Max Values     **********
+************************************************/
 
 uint8_t i;		// 8bit unsigned 		0	bis	255
 int8_t j;		// 8bit signed  	  -128 	bis 	+127 
@@ -38,18 +66,44 @@ int32_t n;		// 32bit signed	  -2147483648 bis +2147483647
 float o; 		// 32bit Fließkomma			1.2E-38 3.4E+38
 double p;		// 64bit Fließkomma 		2.3E-308 1.7E+308
 
-#define F_CPU 8000000UL  // 8 MHz
+
+
+char h;		// char h='a'; h='A'; h='\n';
+char outs[20];  	//char array mit name outs 20 länge
+char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //0terinator von hans
+const char hallo[] = { "Hallo Welt\n" }; //oterminator automatisch
+
+
+
+
+/*********************************************************
+*******  sleep funktion (für variables delay)   **********
+**********************************************************/
+#define F_CPU 8000000UL  // 8 MHz muss vor delay.h stehen
 #include <util/delay.h>
+//funktionsprototypen
 void sleep_ms(uint16_t ms);   //wird benötigt um "variable" zeit zu pausieren
-/* sleep schlaufe */
+void sleep_us(uint16_t us);
+
+//sleep funktionen
 void sleep_ms(uint16_t ms){
 	while(ms){
 		ms--;
 		_delay_ms(1);
 	}
 }
+void sleep_us(uint16_t us){
+	while(us){
+		us--;
+		_delay_us(1);
+	}
+}
 
 
+
+/**********************************************
+*******  schleifen, string und misc  **********
+**********************************************/
 
 //for schleife
 uint8_t i;
@@ -176,7 +230,3 @@ int8_t BufferOut(uint8_t *pByte)
   ringbuffer.ReadPos = (ringbuffer.ReadPos+1) & BUFFER_MASK;
   return 0;//SUCCESS
 }
-
-
-
-
