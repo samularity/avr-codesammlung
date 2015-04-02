@@ -23,7 +23,7 @@ PORTB = 0b00000111;     //port b pin 0,1,2 high
 
 
 char h;		// char h='a'; h='A'; h='\n';
-char outs[20];  	//char array mit name outs 20 länge
+char outs[20];  	//char array mit name outs 20 lÃ¤nge
 char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //0terinator von hans
 const char hallo[] = { "Hallo Welt\n" }; //oterminator automatisch
 
@@ -31,16 +31,16 @@ const char hallo[] = { "Hallo Welt\n" }; //oterminator automatisch
 uint8_t i;		// 8bit unsigned 		0	bis	255
 int8_t j;		// 8bit signed  	  -128 	bis 	+127 
 uint16_t k; 	// 16bit unsigend 		0	bis	65535
-int16_t l; 		// 16bit signed  	–32768 	bis	+32767
+int16_t l; 		// 16bit signed  	â€“32768 	bis	+32767
 uint32_t m;		// 32bit unsigned 		0	bis	4294967296
 int32_t n;		// 32bit signed	  -2147483648 bis +2147483647
 
-float o; 		// 32bit Fließkomma			1.2E-38 3.4E+38
-double p;		// 64bit Fließkomma 		2.3E-308 1.7E+308
+float o; 		// 32bit FlieÃŸkomma			1.2E-38 3.4E+38
+double p;		// 64bit FlieÃŸkomma 		2.3E-308 1.7E+308
 
 #define F_CPU 8000000UL  // 8 MHz
 #include <util/delay.h>
-void sleep_ms(uint16_t ms);   //wird benötigt um "variable" zeit zu pausieren
+void sleep_ms(uint16_t ms);   //wird benÃ¶tigt um "variable" zeit zu pausieren
 /* sleep schlaufe */
 void sleep_ms(uint16_t ms){
 	while(ms){
@@ -63,12 +63,12 @@ itoa( potValue, Buffer, 10 );
 
 //switch bespiel
 switch (variable) {
-  case 1:       // Anweisungen für diesen Zweig, wenn variable == 1
+  case 1:       // Anweisungen fÃ¼r diesen Zweig, wenn variable == 1
     break;
   case 14: 
-  case 17:      // Anweisungen für diesen Zweig, wenn variable == 14 oder 17
+  case 17:      // Anweisungen fÃ¼r diesen Zweig, wenn variable == 14 oder 17
     break;
-  default:      // Anweisungen wenn keine der oben definierten Bedingungen erfüllt ist
+  default:      // Anweisungen wenn keine der oben definierten Bedingungen erfÃ¼llt ist
     break;
 }
 
@@ -85,12 +85,12 @@ void bootloader (void) //springt beim atmega32 u4 in den bootloader
 	asm volatile ("jmp 0x3800");
 }
 
-//arry füllen
+//arry fÃ¼llen
 memset	(&inputbuffer,0,250);//memset fills array &inputbuffer with 0's
 
 
 
-if (strncmp(command,"movex ",6)==0) // prüft anfang vom string
+if (strncmp(command,"movex ",6)==0) // prÃ¼ft anfang vom string
 {  
 	stepper_x_move (  200 *  (atol	(command+6))); // wandelt ab dem 6.zeichen in zahl
  }
