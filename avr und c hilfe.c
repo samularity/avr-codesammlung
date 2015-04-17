@@ -70,9 +70,26 @@ double p;		// 64bit Fließkomma 		2.3E-308 1.7E+308
 
 char h;		// char h='a'; h='A'; h='\n';
 char outs[20];  	//char array mit name outs 20 länge
-char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //0terinator von hans
-const char hallo[] = { "Hallo Welt\n" }; //oterminator automatisch
+char filled[20]={'\0'}; //initalize all elements of array to '\0'
+char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //char zuweisung, 0 terinator von Hand
+const char hallo[] = { "Hallo Welt\n" }; // "string" zuweisung, 0 terminator automatisch
+memset(outs, 0, sizeof(char)*outs);
 
+/*********************************************************
+***************       pointer magic       ****************
+**********************************************************/
+
+uint8_t val = 22;		// new variable
+uint8_t * ptr = &val;	// new pointer to adress of value	'&' gives the adress
+*ptr = 5;				// val is now 5						'*' gives the value
+ptr++;					// points to the next adress... nobody knows what is stored there
+
+
+uint8_t value[2] = {22, 11};    // new array[] 
+uint8_t * potr = value;         // new pointer to value[0]    '&' gives the adress
+uint8_t * potr = &value[0]      // same as line below
+*potr += 5;                     // value[0] is now 27         '*' gives the value
+potr++;                         // points to next element in array, here value[1] 
 
 
 
