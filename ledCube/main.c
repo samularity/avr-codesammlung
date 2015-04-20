@@ -117,7 +117,7 @@ void write_cube(uint8_t ebene)
 	}
 	set_led(ebene);
 	//sleep_us(4);
-	SET_LOW(TOP);SET_LOW(MIDDLE);SET_LOW(LOW);
+	//SET_LOW(TOP);SET_LOW(MIDDLE);SET_LOW(LOW);
 }
 void set_led (uint8_t ebene)
 {
@@ -161,8 +161,8 @@ void set_led (uint8_t ebene)
 			{SET_HIGH(LED9);}
 		else{SET_LOW(LED9);}
 		
-		__asm("nop");__asm("nop");__asm("nop");
-		__asm("nop");__asm("nop");__asm("nop");
+	//	__asm("nop");__asm("nop");__asm("nop");
+	//	__asm("nop");__asm("nop");__asm("nop");
 	}
 }
 
