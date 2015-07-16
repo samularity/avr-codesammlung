@@ -50,7 +50,9 @@ bool Eingang1 = PINC & (1<<7);  //true wenn pc7 high
 bool Eingang2 = (!(PINC & (1<<2)))//true wenn pc2 low
 
 
+//Questionmark opaerator
 
+uint8_t myValue = Expression ? ifTrue : ifFalse;
 
 /************************************************
 *********    Variablen Max Values     **********
@@ -74,6 +76,7 @@ char filled[20]={'\0'}; //initalize all elements of array to '\0'
 char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //char zuweisung, 0 terinator von Hand
 const char hallo[] = { "Hallo Welt\n" }; // "string" zuweisung, 0 terminator automatisch
 memset(outs, 0, sizeof(char)*outs);
+
 
 /*********************************************************
 ***************       pointer magic       ****************
