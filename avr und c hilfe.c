@@ -139,6 +139,8 @@ itoa( potValue, Buffer, 10 );
 switch (variable) {
   case 1:       // Anweisungen für diesen Zweig, wenn variable == 1
     break;
+  case 2 ... 13: // Anweisungen für diesen Zweig, wenn variable zwischen 2 und 13
+    break;	// die syntax zahl [space] ... [space] zahl sollte beachtete werden
   case 14: 
   case 17:      // Anweisungen für diesen Zweig, wenn variable == 14 oder 17
     break;
