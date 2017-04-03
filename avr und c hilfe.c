@@ -59,13 +59,13 @@ uint8_t myValue = Expression ? ifTrue : ifFalse;
 ************************************************/
 
 uint8_t i;		// 8bit unsigned 		0	bis	255
-int8_t j;		// 8bit signed  	  -128 	bis 	+127 
-uint16_t k; 	// 16bit unsigend 		0	bis	65535
-int16_t l; 		// 16bit signed  	–32768 	bis	+32767
+int8_t j;		// 8bit signed  	  	-128 	bis 	+127 
+uint16_t k; 		// 16bit unsigend 		0	bis	65535
+int16_t l; 		// 16bit signed  		–32768 	bis	+32767
 uint32_t m;		// 32bit unsigned 		0	bis	4294967296
-int32_t n;		// 32bit signed	  -2147483648 bis +2147483647
+int32_t n;		// 32bit signed	 	   	 -2147483648 bis +2147483647
 
-float o; 		// 32bit Fließkomma			1.2E-38 3.4E+38
+float o; 		// 32bit Fließkomma		1.2E-38 3.4E+38
 double p;		// 64bit Fließkomma 		2.3E-308 1.7E+308
 
 
@@ -76,17 +76,17 @@ char filled[20]={'\0'}; //initalize all elements of array to '\0'
 char hallo[] = { 'H', 'a', 'l', 'l', 'o', ' ', 'W', 'e', 'l', 't', '\n', '\0' }; //char zuweisung, 0 terinator von Hand
 const char hallo[] = { "Hallo Welt\n" }; // "string" zuweisung, 0 terminator automatisch
 memset(outs, 0, sizeof(char)*outs);
-
+memcpy(filled,hallo,12 ); // copy to dest from src memcpy(dest,src,size);
 
 /*********************************************************
 ***************       pointer magic       ****************
 **********************************************************/
 
 uint8_t val = 22;		// new variable
-uint8_t * ptr = &val;	// new pointer to adress of value	'&' gives the adress
-*ptr = 5;				// val is now 5						'*' gives the value
-ptr++;					// points to the next adress... nobody knows what is stored there
-
+uint8_t * ptr = &val;		// new pointer to adress of value	'&' gives the adress
+*ptr = 5;			// val is now 5						'*' gives the value
+ptr++;				// points to the next adress... nobody knows what is stored there
+uint32_t * pval = (uint32_t*) 0x0C00C000U; // map varaiable to adress
 
 uint8_t value[2] = {22, 11};    // new array[] 
 uint8_t * potr = value;         // new pointer to value[0]    '&' gives the adress
@@ -95,7 +95,15 @@ uint8_t * potr = &value[0]      // same as line below
 potr++;                         // points to next element in array, here value[1] 
 
 
+/************************************************
+*********          MACROS              **********
+************************************************/
 
+#define STR_EXPAND(tok)	#tok
+#define STR(tok) 	STR_EXPAND(tok)
+#define MYNUMBER 	1234
+#define STRMYNUMBER	STR(MYNUMBER)
+#define STR_VERSION     "Version:" STR(MYNUMBER) 
 /*********************************************************
 *******  sleep funktion (für variables delay)   **********
 **********************************************************/
