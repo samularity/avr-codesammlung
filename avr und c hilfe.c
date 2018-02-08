@@ -78,6 +78,26 @@ const char hallo[] = { "Hallo Welt\n" }; // "string" zuweisung, 0 terminator aut
 memset(outs, 0, sizeof(char)*outs);
 memcpy(filled,hallo,12 ); // copy to dest from src memcpy(dest,src,size);
 
+//initalize a multi dimensional array
+int multiDimensionalArray[2][4] =
+{
+  {10,  5, -1, -7},
+  { 3,  4,  5,  4}
+}
+
+//initalize a stuct
+typedef struct STItem {
+    int i;
+    float j;
+    char* lala;
+} STItem;
+
+STItem stItem = { 4, 3.14, "myString" };
+//or
+stItem = (STItem) { 5, 4.14, "newstring" };
+//or
+stItem = (MY_TYPE) { .j = 7.333, .i = 3, .lala = "anotherStr" };
+
 /*********************************************************
 ***************       pointer magic       ****************
 **********************************************************/
